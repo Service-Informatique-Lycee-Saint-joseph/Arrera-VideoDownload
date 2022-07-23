@@ -57,7 +57,15 @@ def NoInternet():
     label=Label(ScreenSearch,text="Pas d'acces a internet",font=("arial",30),bg="black",fg="white").pack()
     ScreenSearch.mainloop()
 
-def InterafaceSearch(Color,TextColor):
+def InterafaceSearch():
+    ResultatHour1 = HourSup(21)
+    ResultatHour2 = HourInf(6)
+    if ResultatHour1 == False or ResultatHour2 == False :
+        Color = "white"
+        TextColor = "black"
+    if ResultatHour1 == True or ResultatHour2 == True :
+        Color = "black"
+        TextColor = "white"
     TailleText =  "15"
     ScreenSearch = Tk()
     ScreenSearch.iconphoto(False,PhotoImage(file="image/ArreraRecherche.png"))
@@ -284,13 +292,9 @@ def InterafaceSearch(Color,TextColor):
     #BoutonApplication.pack()
     ScreenSearch.mainloop()   
 
+
 EtatInternet = TestInternet()
 if EtatInternet == True:
-    ResultatHour1 = HourSup(21)
-    ResultatHour2 = HourInf(6)
-    if ResultatHour1 == False or ResultatHour2 == False :
-        InterafaceSearch("white","black")
-    if ResultatHour1 == True or ResultatHour2 == True :
-        InterafaceSearch("black","white")
+    InterafaceSearch()
 if EtatInternet == False :
     NoInternet()
