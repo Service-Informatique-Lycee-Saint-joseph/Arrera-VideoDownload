@@ -35,7 +35,7 @@ def HourInf(h1):
 ResultatHour1 = HourSup(21)
 ResultatHour2 = HourInf(6)
 if ResultatHour1 == False or ResultatHour2 == False :
-    Color = "white"
+    Color = "#eeebeb"
     TextColor = "black"
 if ResultatHour1 == True or ResultatHour2 == True :
     Color = "black"
@@ -57,28 +57,15 @@ def FoncModif(file):
     Modif = Button(ScreenModif,text="Modifier",bg=Color,fg=TextColor,command=Modif).pack(side="right",anchor="s")
     entry.pack(side="left",anchor="s")
 
-def FileChange1():
-    FoncModif("Config/emplacementMusic.txt")
-    FileMusic = str(Lecture("Config/emplacementMusic.txt"))
-def FileChange2():
-    FoncModif("Config/emplacementVideo.txt")
-    FileVideo = str(Lecture("Config/emplacementVideo.txt"))
 def YoutubeDownload():
     screen = Tk()
-    FileMusic = str(Lecture("Config/emplacementMusic.txt"))
-    FileVideo = str(Lecture("Config/emplacementVideo.txt"))
+    FileMusic = "musique"
+    FileVideo = "video"
     screen.title("Arrera Video Download")
-    menu = Menu(screen,bg=Color,fg=TextColor)
-    screen.config(bg=Color,menu=menu)
+    screen.config(bg=Color)
     screen.iconphoto(False,PhotoImage(file="image/ArreraVideoDownload.png"))
     screen.maxsize(500,600)
     screen.minsize(500,600)
-    #Menu
-    Fichier = Menu(menu,tearoff=0)
-    Fichier.add_command(label="Fichier musique",command=FileChange1)
-    Fichier.add_command(label="Fichier video",command=FileChange2)
-    menu.add_cascade(label="fichier",menu=Fichier)
-    menu.add_command(label="A propos")
     #Label et Cadre
     LabelVideo = Label(screen,text= "Video",bg=Color,fg=TextColor,font=("arial","25"))
     CadreVideo = Frame(screen,bg=Color,width=400,height=100)
@@ -93,10 +80,10 @@ def YoutubeDownload():
     LabelURL3 = Label(CadreMusic,text="Taper l'URL",fg=TextColor,bg=Color,font=("arial","15"))
     LabelURL4 = Label(CadreMusic2,text="Taper l'URL",fg=TextColor,bg=Color,font=("arial","15"))
     #Entry
-    EntryURL1 = Entry(CadreVideo,width=45)
-    EntryURL2 = Entry(CadreVideo2,width=45)
-    EntryURL3 = Entry(CadreMusic,width=45)
-    EntryURL4 = Entry(CadreMusic2,width=45)
+    EntryURL1 = Entry(CadreVideo,width=63)
+    EntryURL2 = Entry(CadreVideo2,width=63)
+    EntryURL3 = Entry(CadreMusic,width=63)
+    EntryURL4 = Entry(CadreMusic2,width=63)
     #Fonction
     def AffichageCadre():
         LabelVideo.pack()
