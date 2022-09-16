@@ -1,7 +1,6 @@
 import webbrowser
 import requests
 
-Navigateur =  "/usr/bin/firefox"
 def TestInternet():
     try:
         _ = requests.get("https://duckduckgo.com",timeout=5)
@@ -15,14 +14,14 @@ def googleSearch(query):
         query = {'q': query}
         urllink = requests.get(url, params=query)
         liengoogle = urllink.url
-        webbrowser.get(Navigateur).open(liengoogle)
+        webbrowser.open(liengoogle)
 def duckduckgoSearch(query):
     with requests.session() as c:
         url = 'https://duckduckgo.com/?q'
         query = {'q': query}
         urllink = requests.get(url, params=query)
         lienduck = urllink.url
-        webbrowser.get(Navigateur).open(lienduck)
+        webbrowser.open(lienduck)
     
 def QwantSearch(query):
     with requests.session() as c:
@@ -30,7 +29,7 @@ def QwantSearch(query):
         query = {'q': query}
         urllink = requests.get(url, params=query)
         lienQwant = urllink.url
-        webbrowser.get(Navigateur).open(lienQwant)
+        webbrowser.open(lienQwant)
 
 def EcosiaSearch(query):
     with requests.session() as c:
@@ -38,7 +37,7 @@ def EcosiaSearch(query):
         query = {'q': query}
         urllink = requests.get(url,query)
         lienEcosia = urllink.url
-        webbrowser.get(Navigateur).open(lienEcosia)
+        webbrowser.open(lienEcosia)
   
 def bingSearch(query):
     with requests.session() as c:
@@ -46,29 +45,29 @@ def bingSearch(query):
         query = {'q': query}
         urllink = requests.get(url, params=query)
         lienbing = urllink.url
-        webbrowser.get(Navigateur).open(lienbing)
+        webbrowser.open(lienbing)
 def LarousseSearch(query):
     with requests.session() as c:
         url = 'https://www.larousse.fr/dictionnaires/francais/'
         lienLarousse = url+query
-        webbrowser.get(Navigateur).open(lienLarousse)
+        webbrowser.open(lienLarousse)
 def WikipediaSearch(query):
     with requests.session() as c:
         url = 'https://fr.wikipedia.org/wiki/'
         lienWiki = url+query
-        webbrowser.get(Navigateur).open(lienWiki)
+        webbrowser.open(lienWiki)
 def googleTrad(query):
     with requests.session() as c:
         url = 'https://translate.google.com/'
         query = {'q': query}
         urllink = requests.get(url, params=query)
         liengoogle = urllink.url
-        webbrowser.get(Navigateur).open(liengoogle) 
+        webbrowser.open(liengoogle) 
 def WordreferenceSearch(query):
     with requests.session() as c:
         url = 'https://www.wordreference.com/fren/'
         lienWord = url+query
-        webbrowser.get(Navigateur).open(lienWord)
+        webbrowser.open(lienWord)
 
 def YTmusicSearch(query):
     with requests.session() as c:
@@ -76,7 +75,7 @@ def YTmusicSearch(query):
         query = {'q': query}
         urllink = requests.get(url, params=query)
         lienYTmusic = urllink.url
-        webbrowser.get(Navigateur).open(lienYTmusic)
+        webbrowser.open(lienYTmusic)
 
 def Mcarte():
-    webbrowser.get(Navigateur).open("https://meteofrance.com/previsions-meteo-france/pas-de-calais/62")
+    webbrowser.open("https://meteofrance.com/previsions-meteo-france/pas-de-calais/62")

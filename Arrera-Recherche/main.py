@@ -1,21 +1,12 @@
 from tkinter import*
-from urllib.robotparser import RequestRate
 from ModuleInternet import*
 import os
 from time import*
 
-def Touches(fenetre,fonc1,touche1,fonc2,touche2,fonc3,touche3,fonc4,touche4,fonc5,touche5):
+def Touches(fenetre,fonc1,touche1):
     def anychar(event):
         if event.keycode == touche1:
             fonc1()
-        if event.keycode == touche2:
-            fonc2() 
-        if event.keycode == touche3:
-            fonc3()
-        if event.keycode == touche4:
-            fonc4() 
-        if event.keycode == touche5:
-            fonc5() 
     fenetre.bind("<Key>", anychar)
 
 def HourSup(h1):
@@ -37,10 +28,6 @@ def HourInf(h1):
 
 def Calculatrice():
     os.popen("gnome-calculator")
-def FileSearch(name,path):
-    for dirpath, dirname, filename in os.walk(path):
-        if name in filename:
-            return os.path.join(dirpath, name)
 def GrandRecherche(query):
     googleSearch(query)
     duckduckgoSearch(query)
@@ -74,18 +61,17 @@ def InterafaceSearch():
     ScreenSearch.minsize(550,680)
     ScreenSearch.config(bg=Color)
     #Cadre
-    CadreSearch = Frame(ScreenSearch,bg=Color)
+    CadreSearch = Frame(ScreenSearch,bg="grey")
 
     #CadreAPP = Frame(ScreenSearch,bg=Color)
     CadreInternet = Frame(ScreenSearch,bg=Color)
     CadreTrad = Frame(ScreenSearch,bg=Color)
-    CadreFile = Frame(ScreenSearch,bg=Color)
     CadreDico = Frame(ScreenSearch,bg=Color)
     CadreMusic = Frame(ScreenSearch,bg=Color)
     CadreCalcule = Frame(ScreenSearch,bg=Color)
     #Bouton
-    BoutonLarousse = Button(CadreDico,bg="blue",fg="white",text="Definition\n Larousse",width=5,height=3)
-    BoutonWikipedia = Button(CadreDico,bg="blue",fg="white",text="Definition\n Wikipedia",width=5,height=3)
+    BoutonLarousse = Button(CadreDico,bg="blue",fg="white",text="Definition\n Larousse",width=8,height=4,font=("arial","15"))
+    BoutonWikipedia = Button(CadreDico,bg="blue",fg="white",text="Definition\n Wikipedia",width=8,height=4,font=("arial","15"))
     BoutonDuck = Button(CadreInternet,bg="blue")
     BoutonGoogle = Button(CadreInternet,bg="blue")
     BoutonEcosia = Button(CadreInternet,bg="blue")
@@ -94,7 +80,6 @@ def InterafaceSearch():
     BoutonMRArerra = Button(CadreInternet,bg="blue")    
     BoutonGoogleTrad = Button(CadreTrad,bg="blue")
     BoutonWord = Button(CadreTrad,bg="blue")
-    BoutonFile = Button(CadreFile,bg="blue")
     BoutonMusic = Button(CadreMusic,bg="blue")
     LabelCalcule = Label(CadreCalcule,bg="grey",fg="white",width=50,height=15)
     BoutonCalcule = Button(CadreCalcule,bg="blue",fg="white",text="Fin",width=30,font=("arial","30"))
@@ -108,7 +93,6 @@ def InterafaceSearch():
     IconMRArerra =  PhotoImage(file="image/MoteurArreraRecherche.png",master=BoutonMRArerra)
     IconWordreference =  PhotoImage(file="image/Wordreference.png",master=BoutonWord)
     IconGoogleTrad =  PhotoImage(file="image/googleTrad.png",master=BoutonGoogleTrad)
-    IconFile =  PhotoImage(file="image/fichier.png",master=BoutonFile)
     IconMusic =  PhotoImage(file="image/Music.png",master=BoutonMusic)
     #IconApp =   PhotoImage(file="image/Application.png",master=BoutonApplication)
 
@@ -120,7 +104,6 @@ def InterafaceSearch():
     BoutonMRArerra.image_names = IconMRArerra
     BoutonWord.image_names = IconWordreference
     BoutonGoogleTrad.image_names = IconGoogleTrad
-    BoutonFile.image_names = IconFile
     BoutonMusic.image_names = IconMusic
     #BoutonApplication.image_names = IconApp
 
@@ -132,7 +115,6 @@ def InterafaceSearch():
     BoutonMRArerra.config(image =IconMRArerra)
     BoutonWord.config(image =IconWordreference)
     BoutonGoogleTrad.config(image=IconGoogleTrad)
-    BoutonFile.config(image=IconFile)
     BoutonMusic.config(image=IconMusic)
     #BoutonApplication.config(image=IconApp )   
     #Label
@@ -155,11 +137,10 @@ def InterafaceSearch():
         CadreCalcule.pack_forget()
         CadreInternet.pack()
         CadreTrad.pack()
-        CadreFile.pack()
         CadreDico.pack()
         CadreMusic.pack()
         BoutonValider.config(command=Valider)
-    ZoneEntrer = Entry(CadreSearch,width=50)
+    ZoneEntrer = Entry(CadreSearch,width=75)
     def DuckTouche():
         requette = ZoneEntrer.get()
         duckduckgoSearch(requette)
@@ -197,19 +178,6 @@ def InterafaceSearch():
             WordreferenceSearch(requette)
         def Music():
             YTmusicSearch(requette)
-        def File():
-            Search = str(FileSearch(requette,"/"))
-            ScreenFile = Toplevel()
-            def CopierPath():
-                cp = ScreenFile.clipboard_get()
-                cp
-                ScreenFile.clipboard_clear()
-                ScreenFile.clipboard_append(Search)  
-            ScreenFile.title("Fichier")
-            ScreenFile.config(bg=Color)
-            ScreenFile.minsize(800,70)
-            LabelResultat = Label(ScreenFile,text=Search,bg=Color,fg=TextColor).pack(side="left")
-            BoutonCopier = Button(ScreenFile,text="Copier le chemin",bg=Color,fg=TextColor,command=CopierPath).pack(side="right")
         if requette == "Calcule" or requette == "calcule":
             Calculatrice()
         if requette == "meteo" or requette == "meteo" :
@@ -225,7 +193,6 @@ def InterafaceSearch():
         BoutonMRArerra.config(command=MRarrera)
         BoutonGoogleTrad.config(command=GoogleTrad)
         BoutonWord.config(command=Wordreference)
-        BoutonFile.config(command=File)
         BoutonMusic.config(command=Music)
 
     #Bouton
@@ -233,8 +200,9 @@ def InterafaceSearch():
     IconValider = PhotoImage(master=BoutonValider,file="image/ArreraRecherche.png")
     BoutonValider.image_names = IconValider
     BoutonValider.config(image=IconValider,bg=Color)
-    Touches(ScreenSearch,DuckTouche,96,GoogleTouche,67,GrandSearchTouche,68,YTmusicTouche,69,Valider,36)
+    Touches(ScreenSearch,Valider,13)
     #Label
+    LabelTop = Label(ScreenSearch,bg=Color)
     LabelLigne = Label(ScreenSearch,bg="white",width=1000,height=1)
     Ligne = PhotoImage(file="image/ligne.png",master=LabelLigne)
     LabelLigne.image_names = Ligne
@@ -242,26 +210,24 @@ def InterafaceSearch():
     #LabelCategorie1 = Label(CadreAPP,text="Application",font=("arial",TailleText ),bg=Color,fg=TextColor)
     LabelCategorie2 = Label(CadreInternet,text="Recherche Internet",font=("arial",TailleText ),bg=Color,fg=TextColor)
     LabelCategorie3 = Label(CadreTrad,text="Traduction",font=("arial",TailleText ),bg=Color,fg=TextColor)
-    LabelCategorie4 = Label(CadreFile,text="Fichier",font=("arial",TailleText ),bg=Color,fg=TextColor)
     LabelCategorie5 = Label(CadreDico,text="Dictionnaire",font=("arial",TailleText ),bg=Color,fg=TextColor)
     LabelCategorie6 = Label(CadreMusic,text="Musique",font=("arial",TailleText ),bg=Color,fg=TextColor)
     #affichage
+    LabelTop.pack()
     #cadre
     CadreSearch.pack()
     LabelLigne.pack()
     #CadreAPP.pack()
     CadreInternet.pack()
     CadreTrad.pack()
-    CadreFile.pack()
-    CadreDico.pack()
     CadreMusic.pack()
+    CadreDico.pack()
     #widget
     ZoneEntrer.pack(side="left")
     BoutonValider.pack(side="right")
     #LabelCategorie1.pack()
     LabelCategorie2.pack()
     LabelCategorie3.pack()
-    LabelCategorie4.pack()
     LabelCategorie5.pack()
     LabelCategorie6.pack()
     BoutonLarousse.pack(side="left")
@@ -278,12 +244,12 @@ def InterafaceSearch():
     BoutonGoogle.pack(side="right")
     LabelEcart6.pack(side="right")
     BoutonMRArerra.pack(side="right")
+    BoutonMusic.pack()
     LabelEcart7.pack(side="right")
     BoutonGoogleTrad.pack(side="right")
     LabelEcart8.pack(side="right")
     BoutonWord.pack(side="left")
     LabelEcart9.pack(side="left")
-    BoutonFile.pack()
     BoutonMusic.pack()
     LabelEcart10.pack()
     LabelCalcule.pack()

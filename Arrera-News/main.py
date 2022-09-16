@@ -3,29 +3,7 @@ import webbrowser
 Navigateur = "firefox"
 from time import*
 
-def HourSup(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT >= h1:
-        return True
-    else :
-        return False
-def HourInf(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT <= h1:
-        return True
-    else :
-        return False
-
-ResultatHour1 = HourSup(21)
-ResultatHour2 = HourInf(6)
-if ResultatHour1 == False or ResultatHour2 == False :
-    color = "white"
-if ResultatHour1 == True or ResultatHour2 == True :
-    color = "black"
+color = "black"
 
 def LeMonde():
     webbrowser.get(Navigateur).open("https://www.lemonde.fr/")

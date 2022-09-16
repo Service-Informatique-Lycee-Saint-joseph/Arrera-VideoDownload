@@ -1,6 +1,10 @@
 from tkinter import*
 import os
 from time import*
+#Variabel 
+Color = "black"
+TextColor = "white"
+#Fonction
 def ArreraCriptage(para,phrase):
     if para == "Criptage":
         phrase = phrase.replace("a","&")
@@ -85,30 +89,7 @@ def ArreraCriptage(para,phrase):
         phrase = phrase.replace("?","z")
         return phrase
 
-def HourSup(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT >= h1:
-        return True
-    else :
-        return False
-def HourInf(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT <= h1:
-        return True
-    else :
-        return False
-ResultatHour1 = HourSup(21)
-ResultatHour2 = HourInf(6)
-if ResultatHour1 == False or ResultatHour2 == False :
-    Color = "white"
-    TextColor = "black"
-if ResultatHour1 == True or ResultatHour2 == True :
-    Color = "black"
-    TextColor = "white"
+#Fenetre
 screen = Tk()
 screen.title("Arrera Criptage")
 screen.minsize(500,200)
