@@ -7,7 +7,18 @@ def TestInternet():
         return True
     except requests.ConnectionError :
         return False
-
+def braveSearch(query):
+    with requests.session() as c:
+        url = 'https://search.brave.com/search?q='
+        urllink = requests.get(url+query+"&source=web")
+        lienBrave = urllink.url
+        webbrowser.open(lienBrave)
+def AmazonSearch(query):
+    with requests.session() as c:
+        url = 'https://www.amazon.fr/s?k='
+        urllink = requests.get(url+query)
+        lienAmazon = urllink.url
+        webbrowser.open(lienAmazon)
 def googleSearch(query):
     with requests.session() as c:
         url = 'https://www.google.com/search?q'
@@ -56,11 +67,10 @@ def WikipediaSearch(query):
         url = 'https://fr.wikipedia.org/wiki/'
         lienWiki = url+query
         webbrowser.open(lienWiki)
-def googleTrad(query):
+def reverso(query):
     with requests.session() as c:
-        url = 'https://translate.google.com/'
-        query = {'q': query}
-        urllink = requests.get(url, params=query)
+        url = 'https://www.reverso.net/traduction-texte#sl=fra&tl=eng&text='
+        urllink = requests.get(url+query)
         liengoogle = urllink.url
         webbrowser.open(liengoogle) 
 def WordreferenceSearch(query):
@@ -76,6 +86,11 @@ def YTmusicSearch(query):
         urllink = requests.get(url, params=query)
         lienYTmusic = urllink.url
         webbrowser.open(lienYTmusic)
+def GrandRecherche(query):
+    googleSearch(query)
+    duckduckgoSearch(query)
+    QwantSearch(query)
+    EcosiaSearch(query)
+    bingSearch(query) 
+    braveSearch(query)
 
-def Mcarte():
-    webbrowser.open("https://meteofrance.com/previsions-meteo-france/pas-de-calais/62")

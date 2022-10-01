@@ -3,37 +3,15 @@ from ModuleInternet import*
 import os
 from time import*
 
+#Constante
+Color = "#3c0f14"
+TextColor = "white"
+TailleText =  "15"
 def Touches(fenetre,fonc1,touche1):
     def anychar(event):
         if event.keycode == touche1:
             fonc1()
     fenetre.bind("<Key>", anychar)
-
-def HourSup(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT >= h1:
-        return True
-    else :
-        return False
-def HourInf(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT <= h1:
-        return True
-    else :
-        return False
-
-def Calculatrice():
-    os.popen("gnome-calculator")
-def GrandRecherche(query):
-    googleSearch(query)
-    duckduckgoSearch(query)
-    QwantSearch(query)
-    EcosiaSearch(query)
-    bingSearch(query) 
 
 def NoInternet():
     ScreenSearch = Tk()
@@ -45,217 +23,72 @@ def NoInternet():
     ScreenSearch.mainloop()
 
 def InterafaceSearch():
-    ResultatHour1 = HourSup(21)
-    ResultatHour2 = HourInf(6)
-    if ResultatHour1 == False or ResultatHour2 == False :
-        Color = "white"
-        TextColor = "black"
-    if ResultatHour1 == True or ResultatHour2 == True :
-        Color = "black"
-        TextColor = "white"
-    TailleText =  "15"
     ScreenSearch = Tk()
+    #var image 
+    iconRecherche = PhotoImage(file="image/iconRecherche.png")
+    iconMusic =  PhotoImage(file="image/Music.png")
+    iconWikipedia = PhotoImage(file="image/iconWikipedia.png")
+    iconWordreference = PhotoImage(file="image/iconWordreference.png")
+    iconReverso=PhotoImage(file="image/iconReverso.png")
+    #Fenetre
     ScreenSearch.iconphoto(False,PhotoImage(file="image/ArreraRecherche.png"))
     ScreenSearch.title("Arrera Recherche")
     ScreenSearch.maxsize(550,680)
     ScreenSearch.minsize(550,680)
     ScreenSearch.config(bg=Color)
     #Cadre
-    CadreSearch = Frame(ScreenSearch,bg="grey")
-
-    #CadreAPP = Frame(ScreenSearch,bg=Color)
-    CadreInternet = Frame(ScreenSearch,bg=Color)
-    CadreTrad = Frame(ScreenSearch,bg=Color)
-    CadreDico = Frame(ScreenSearch,bg=Color)
-    CadreMusic = Frame(ScreenSearch,bg=Color)
-    CadreCalcule = Frame(ScreenSearch,bg=Color)
-    #Bouton
-    BoutonLarousse = Button(CadreDico,bg="blue",fg="white",text="Definition\n Larousse",width=8,height=4,font=("arial","15"))
-    BoutonWikipedia = Button(CadreDico,bg="blue",fg="white",text="Definition\n Wikipedia",width=8,height=4,font=("arial","15"))
-    BoutonDuck = Button(CadreInternet,bg="blue")
-    BoutonGoogle = Button(CadreInternet,bg="blue")
-    BoutonEcosia = Button(CadreInternet,bg="blue")
-    BoutonBing = Button(CadreInternet,bg="blue")
-    BoutonQwant = Button(CadreInternet,bg="blue")
-    BoutonMRArerra = Button(CadreInternet,bg="blue")    
-    BoutonGoogleTrad = Button(CadreTrad,bg="blue")
-    BoutonWord = Button(CadreTrad,bg="blue")
-    BoutonMusic = Button(CadreMusic,bg="blue")
-    LabelCalcule = Label(CadreCalcule,bg="grey",fg="white",width=50,height=15)
-    BoutonCalcule = Button(CadreCalcule,bg="blue",fg="white",text="Fin",width=30,font=("arial","30"))
-    #BoutonApplication = Button(CadreAPP,bg="blue")
-    #Image
-    IconDuck = PhotoImage(file="image/duck.png",master=BoutonDuck)
-    IconGoogle = PhotoImage(file="image/google.png",master=BoutonGoogle)
-    IconEcosia = PhotoImage(file="image/ecosia.png",master=BoutonEcosia)
-    IconBing = PhotoImage(file="image/bing.png",master=BoutonBing)
-    IconQwant = PhotoImage(file="image/qwant.png",master=BoutonQwant)
-    IconMRArerra =  PhotoImage(file="image/MoteurArreraRecherche.png",master=BoutonMRArerra)
-    IconWordreference =  PhotoImage(file="image/Wordreference.png",master=BoutonWord)
-    IconGoogleTrad =  PhotoImage(file="image/googleTrad.png",master=BoutonGoogleTrad)
-    IconMusic =  PhotoImage(file="image/Music.png",master=BoutonMusic)
-    #IconApp =   PhotoImage(file="image/Application.png",master=BoutonApplication)
-
-    BoutonDuck.image_names = IconDuck
-    BoutonGoogle.image_names = IconGoogle
-    BoutonEcosia.image_names = IconEcosia
-    BoutonBing.image_names = IconBing
-    BoutonQwant.image_names = IconQwant
-    BoutonMRArerra.image_names = IconMRArerra
-    BoutonWord.image_names = IconWordreference
-    BoutonGoogleTrad.image_names = IconGoogleTrad
-    BoutonMusic.image_names = IconMusic
-    #BoutonApplication.image_names = IconApp
-
-    BoutonDuck.config(image = IconDuck)
-    BoutonGoogle.config(image =IconGoogle)
-    BoutonEcosia.config(image = IconEcosia)
-    BoutonBing.config(image = IconBing)
-    BoutonQwant.config(image =IconQwant)
-    BoutonMRArerra.config(image =IconMRArerra)
-    BoutonWord.config(image =IconWordreference)
-    BoutonGoogleTrad.config(image=IconGoogleTrad)
-    BoutonMusic.config(image=IconMusic)
-    #BoutonApplication.config(image=IconApp )   
-    #Label
-    LabelEcart1 = Label(CadreDico,width=13,height=3,bg=Color)
-    LabelEcart2 = Label(CadreDico,width=13,height=3,bg=Color)
-
-    LabelEcart3 = Label(CadreInternet,width=3,height=5,bg=Color)
-    LabelEcart4 = Label(CadreInternet,width=3,height=5,bg=Color)
-    LabelEcart5 = Label(CadreInternet,width=3,height=5,bg=Color)
-    LabelEcart6 = Label(CadreInternet,width=3,height=5,bg=Color)
-    LabelEcart7 = Label(CadreInternet,width=3,height=5,bg=Color)
-
-    LabelEcart8 = Label(CadreTrad,width=13,height=3,bg=Color)
-    LabelEcart9 = Label(CadreTrad,width=13,height=3,bg=Color)
-
-    LabelEcart10 = Label(CadreCalcule,width=13,height=3,bg=Color)
-    LabelEcart11 = Label(CadreCalcule,width=13,height=3,bg=Color)
+    cadreSearch = Frame(ScreenSearch,bg=Color,width=500,height=100)
+    cadreLeft = Frame(ScreenSearch,bg=Color,width=175,height=550)
+    cadreRight = Frame(ScreenSearch,bg=Color,width=330,height=550)
     #Zone de texte
-    def FinCal():
-        CadreCalcule.pack_forget()
-        CadreInternet.pack()
-        CadreTrad.pack()
-        CadreDico.pack()
-        CadreMusic.pack()
-        BoutonValider.config(command=Valider)
-    ZoneEntrer = Entry(CadreSearch,width=75)
-    def DuckTouche():
-        requette = ZoneEntrer.get()
-        duckduckgoSearch(requette)
-    def GoogleTouche():
-        requette = ZoneEntrer.get()
-        googleSearch(requette)
-    def GrandSearchTouche():
-        requette = ZoneEntrer.get()
-        GrandRecherche(requette)
-    def YTmusicTouche():
-        requette = ZoneEntrer.get()
-        YTmusicSearch(requette)
+    ZoneEntrer = Entry(cadreSearch,bg="white",bd=0,font=("arial","13"))
+    #fonction
     def Valider():
         requette = ZoneEntrer.get()
-        #Command
-        def Larousse():
-            LarousseSearch(requette)
-        def Wikipedia():
-            WikipediaSearch(requette)
-        def Duck():
+        test = requette[:1]
+        if test == "@":
+            char =  requette[:3]
+            text = requette[3:]
+            if char == "@gg":
+                googleSearch(text)
+            if char == "@ec":
+                EcosiaSearch(text)
+            if char == "@qw":
+                QwantSearch(text)
+            if char == "@bg":
+                bingSearch(text)
+            if char == "@br":
+                braveSearch(text)
+            if char == "@gr":
+                GrandRecherche(text)
+            if char == "@am":
+                AmazonSearch(text)
+        else :
             duckduckgoSearch(requette)
-        def Google():
-            googleSearch(requette)
-        def Ecosia():
-            EcosiaSearch(requette)
-        def Bing():
-            bingSearch(requette)
-        def Qwant():
-            QwantSearch(requette)
-        def MRarrera():
-            GrandRecherche(requette)
-        def GoogleTrad():
-            googleTrad(requette)
-        def Wordreference():
-            WordreferenceSearch(requette)
-        def Music():
-            YTmusicSearch(requette)
-        if requette == "Calcule" or requette == "calcule":
-            Calculatrice()
-        if requette == "meteo" or requette == "meteo" :
-            Mcarte()
-        #Config
-        BoutonLarousse.config(command=Larousse)
-        BoutonWikipedia.config(command=Wikipedia)
-        BoutonDuck.config(command=Duck)
-        BoutonGoogle.config(command=Google)
-        BoutonEcosia.config(command=Ecosia)
-        BoutonBing.config(command=Bing)
-        BoutonQwant.config(command=Qwant)
-        BoutonMRArerra.config(command=MRarrera)
-        BoutonGoogleTrad.config(command=GoogleTrad)
-        BoutonWord.config(command=Wordreference)
-        BoutonMusic.config(command=Music)
-
     #Bouton
-    BoutonValider = Button(CadreSearch,command=Valider)
-    IconValider = PhotoImage(master=BoutonValider,file="image/ArreraRecherche.png")
-    BoutonValider.image_names = IconValider
-    BoutonValider.config(image=IconValider,bg=Color)
-    Touches(ScreenSearch,Valider,13)
-    #Label
-    LabelTop = Label(ScreenSearch,bg=Color)
-    LabelLigne = Label(ScreenSearch,bg="white",width=1000,height=1)
-    Ligne = PhotoImage(file="image/ligne.png",master=LabelLigne)
-    LabelLigne.image_names = Ligne
-    LabelLigne.config(image=Ligne)   
-    #LabelCategorie1 = Label(CadreAPP,text="Application",font=("arial",TailleText ),bg=Color,fg=TextColor)
-    LabelCategorie2 = Label(CadreInternet,text="Recherche Internet",font=("arial",TailleText ),bg=Color,fg=TextColor)
-    LabelCategorie3 = Label(CadreTrad,text="Traduction",font=("arial",TailleText ),bg=Color,fg=TextColor)
-    LabelCategorie5 = Label(CadreDico,text="Dictionnaire",font=("arial",TailleText ),bg=Color,fg=TextColor)
-    LabelCategorie6 = Label(CadreMusic,text="Musique",font=("arial",TailleText ),bg=Color,fg=TextColor)
+    BoutonValider = Button(cadreSearch,command=Valider,image=iconRecherche,bg=Color)
+    BoutonWordReference = Button(cadreLeft,bg=Color,image=iconWordreference)
+    BoutonWikipedia = Button(cadreLeft,bg=Color,image=iconWikipedia)
+    boutonReverso = Button(cadreLeft,image=iconReverso,bg=Color)   
+    BoutonMusic = Button(cadreLeft,bg=Color,image=iconMusic)
+    #label
+    labelText=Label(cadreRight,text="Drapeau pour lancer une recherche :\n\n-google : @gg\n\n-Ecosia : @ec\n\n-Qwant : @qw\n\n-Brave : @br\n\n-Bing : @bg\n\n-Grand Recherche : @gr\n\n-Amazon : @am",bg=Color,font=("arial","15"),fg=TextColor)
     #affichage
-    LabelTop.pack()
     #cadre
-    CadreSearch.pack()
-    LabelLigne.pack()
-    #CadreAPP.pack()
-    CadreInternet.pack()
-    CadreTrad.pack()
-    CadreMusic.pack()
-    CadreDico.pack()
-    #widget
-    ZoneEntrer.pack(side="left")
-    BoutonValider.pack(side="right")
-    #LabelCategorie1.pack()
-    LabelCategorie2.pack()
-    LabelCategorie3.pack()
-    LabelCategorie5.pack()
-    LabelCategorie6.pack()
-    BoutonLarousse.pack(side="left")
-    LabelEcart1.pack(side="left")
-    BoutonWikipedia.pack(side="right")
-    LabelEcart2.pack(side="right")
-    BoutonBing.pack(side="left")
-    LabelEcart3.pack(side="left")
-    BoutonEcosia.pack(side="left")
-    LabelEcart5.pack(side="left")
-    BoutonDuck.pack(side="left")
-    BoutonQwant.pack(side="right")
-    LabelEcart4.pack(side="right")
-    BoutonGoogle.pack(side="right")
-    LabelEcart6.pack(side="right")
-    BoutonMRArerra.pack(side="right")
-    BoutonMusic.pack()
-    LabelEcart7.pack(side="right")
-    BoutonGoogleTrad.pack(side="right")
-    LabelEcart8.pack(side="right")
-    BoutonWord.pack(side="left")
-    LabelEcart9.pack(side="left")
-    BoutonMusic.pack()
-    LabelEcart10.pack()
-    LabelCalcule.pack()
-    LabelEcart11.pack()
-    BoutonCalcule.pack()
-    #BoutonApplication.pack()
+    cadreSearch.pack(side="top")
+    cadreLeft.pack(side="left")
+    cadreRight.pack(side="right")
+    #zone de texte
+    ZoneEntrer.place(x=10,y=30,width=395,height=30)
+    #bouton
+    BoutonValider.place(x=420,y=15)
+    BoutonMusic.place(x=50,y=25)
+    BoutonWordReference.place(x=50,y=125)
+    BoutonWikipedia.place(x=50,y=225)
+    boutonReverso.place(x=50,y=325)
+    #label
+    labelText.place(x=0,y=0)
+    #boucle tkinter
     ScreenSearch.mainloop()   
 
 
