@@ -1,8 +1,8 @@
 from tkinter import*
 import webbrowser
 #Varriable
-Color = "#e6e4fc"
-ColorBTN = "#e6e4fc"
+Color = "#3c0f14"
+TextColor = "white"
 #Fonction
 screen = Tk()
 def Python():
@@ -26,27 +26,27 @@ screen.iconphoto(False,PhotoImage(file="image/Icon.png"))
 #Cadre
 cadreLanguage = Frame(screen,bg=Color,width=775,height=250)
 #Bouton
-BoutonPython = Button(cadreLanguage,text="Python",command=Python,bg=ColorBTN)
+BoutonPython = Button(cadreLanguage,text="Python",command=Python,bg=Color)
 IconPython = PhotoImage(file="image/python.png",master=BoutonPython)
 BoutonPython.image_names = IconPython
 BoutonPython.config(image=IconPython)
-BoutonC = Button(cadreLanguage, text="Language C",command=C,bg=ColorBTN)
+BoutonC = Button(cadreLanguage, text="Language C",command=C,bg=Color)
 IconC = PhotoImage(file="image/c.png",master=BoutonC)
 BoutonC.image_names = IconC
 BoutonC.config(image=IconC)
-BoutonBash = Button(cadreLanguage,text="Bash",command = bash,bg=ColorBTN)
+BoutonBash = Button(cadreLanguage,text="Bash",command = bash,bg=Color)
 IconBash = PhotoImage(file="image/bash.png",master=BoutonBash)
 BoutonBash.image_names = IconBash
 BoutonBash.config(image=IconBash)
-BoutonCpp = Button(cadreLanguage, text="LanguagebC++",command=Cpp,bg=ColorBTN)
+BoutonCpp = Button(cadreLanguage, text="LanguagebC++",command=Cpp,bg=Color)
 IconCpp =PhotoImage(file="image/cpp.png",master=BoutonCpp)
 BoutonCpp.image_names = IconCpp
 BoutonCpp.config(image=IconCpp)
-BoutonHtml = Button(cadreLanguage,text="HTML",bg=ColorBTN,command=Htlm)
+BoutonHtml = Button(cadreLanguage,text="HTML",bg=Color,command=Htlm)
 IconHtlm = PhotoImage(file="image/htlm.png",master=BoutonHtml)
 BoutonHtml.image_names = IconHtlm
 BoutonHtml.config(image=IconHtlm)
-BoutonCSS = Button(cadreLanguage,text="CSS",bg=ColorBTN,command=Css)
+BoutonCSS = Button(cadreLanguage,text="CSS",bg=Color,command=Css)
 IconCSS = PhotoImage(file="image/css.png",master=BoutonCSS)
 BoutonCSS.image_names = IconCSS
 BoutonCSS.config(image=IconCSS)
