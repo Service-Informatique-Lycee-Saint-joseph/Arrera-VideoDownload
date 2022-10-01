@@ -3,7 +3,9 @@ from tkinter import*
 from tkinter.messagebox import showinfo
 from time import*
 import os
-
+#var 
+Color = "#3c0f14"
+TextColor = "white"
 def Ecriture(file,text):#Fonction d'écriture sur un fichier texte
     doc = open(file,"w")
     doc.truncate()
@@ -34,12 +36,6 @@ def HourInf(h1):
         return False
 ResultatHour1 = HourSup(21)
 ResultatHour2 = HourInf(6)
-if ResultatHour1 == False or ResultatHour2 == False :
-    Color = "#eeebeb"
-    TextColor = "black"
-if ResultatHour1 == True or ResultatHour2 == True :
-    Color = "black"
-    TextColor = "white"
 def FoncModif(file):
     Contenu = Lecture(file)
     ScreenModif = Toplevel()
@@ -139,10 +135,10 @@ def YoutubeDownload():
             os.rename(out_file, new_file)
         showinfo(title="Youtube Downloader",message="Musiques Télécharger")
     #Bouton
-    BoutonDownload1 = Button(CadreVideo,text="Télécharger",bg=Color,fg=TextColor,command=Download1)
-    BoutonDownload2 = Button(CadreVideo2,text="Télécharger",bg=Color,fg=TextColor,command=Download2)
-    BoutonDownload3 = Button(CadreMusic,text="Télécharger",bg=Color,fg=TextColor,command=Download3)
-    BoutonDownload4 = Button(CadreMusic2,text="Télécharger",bg=Color,fg=TextColor,command=Download4)
+    BoutonDownload1 = Button(CadreVideo,text="Télécharger",bg=Color,fg=TextColor,command=Download1,font=("arial","13"))
+    BoutonDownload2 = Button(CadreVideo2,text="Télécharger",bg=Color,fg=TextColor,command=Download2,font=("arial","13"))
+    BoutonDownload3 = Button(CadreMusic,text="Télécharger",bg=Color,fg=TextColor,command=Download3,font=("arial","13"))
+    BoutonDownload4 = Button(CadreMusic2,text="Télécharger",bg=Color,fg=TextColor,command=Download4,font=("arial","13"))
     #Affichage
     AffichageCadre()
     LabelURL1.place(x="150",y="0")
