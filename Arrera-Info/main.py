@@ -167,9 +167,9 @@ def Widget():
         def Actu4():
             webbrowser.open(url4)
         boutonActu1.config(text=titre1Part1+"\n"+titre1Part2,command=Actu1)
-        boutonActu2.config(text=titre2Part1+"\n"+titre2Part2,command=Actu1)
-        boutonActu3.config(text=titre3Part1+"\n"+titre3Part2,command=Actu1)
-        boutonActu4.config(text=titre4Part1+"\n"+titre4Part2,command=Actu1)
+        boutonActu2.config(text=titre2Part1+"\n"+titre2Part2,command=Actu2)
+        boutonActu3.config(text=titre3Part1+"\n"+titre3Part2,command=Actu3)
+        boutonActu4.config(text=titre4Part1+"\n"+titre4Part2,command=Actu4)
     else :
         cadreMeteoLoc.pack_forget()
         cadreMeteoDomicile.pack_forget()
