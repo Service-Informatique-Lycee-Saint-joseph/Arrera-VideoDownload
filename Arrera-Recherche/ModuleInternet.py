@@ -57,17 +57,12 @@ def bingSearch(query):
         urllink = requests.get(url, params=query)
         lienbing = urllink.url
         webbrowser.open(lienbing)
-def LarousseSearch(query):
-    with requests.session() as c:
-        url = 'https://www.larousse.fr/dictionnaires/francais/'
-        lienLarousse = url+query
-        webbrowser.open(lienLarousse)
 def WikipediaSearch(query):
     with requests.session() as c:
         url = 'https://fr.wikipedia.org/wiki/'
         lienWiki = url+query
         webbrowser.open(lienWiki)
-def reverso(query):
+def ReversoSeacrch(query):
     with requests.session() as c:
         url = 'https://www.reverso.net/traduction-texte#sl=fra&tl=eng&text='
         urllink = requests.get(url+query)

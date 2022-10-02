@@ -65,12 +65,24 @@ def InterafaceSearch():
                 AmazonSearch(text)
         else :
             duckduckgoSearch(requette)
+    def WordReference():
+        requette = ZoneEntrer.get()
+        WordreferenceSearch(requette)
+    def Wikipedia():
+        requette = ZoneEntrer.get()
+        WikipediaSearch(requette)
+    def Reverso():
+        requette = ZoneEntrer.get()
+        ReversoSeacrch(requette)
+    def music():
+        requette = ZoneEntrer.get()
+        YTmusicSearch(requette)
     #Bouton
     BoutonValider = Button(cadreSearch,command=Valider,image=iconRecherche,bg=Color)
-    BoutonWordReference = Button(cadreLeft,bg=Color,image=iconWordreference)
-    BoutonWikipedia = Button(cadreLeft,bg=Color,image=iconWikipedia)
-    boutonReverso = Button(cadreLeft,image=iconReverso,bg=Color)   
-    BoutonMusic = Button(cadreLeft,bg=Color,image=iconMusic)
+    BoutonWordReference = Button(cadreLeft,bg=Color,image=iconWordreference,command=WordReference)
+    BoutonWikipedia = Button(cadreLeft,bg=Color,image=iconWikipedia,command=Wikipedia)
+    boutonReverso = Button(cadreLeft,image=iconReverso,bg=Color,command=Reverso)   
+    BoutonMusic = Button(cadreLeft,bg=Color,image=iconMusic,command=music)
     #label
     labelText=Label(cadreRight,text="Drapeau pour lancer une recherche :\n\n-google : @gg\n\n-Ecosia : @ec\n\n-Qwant : @qw\n\n-Brave : @br\n\n-Bing : @bg\n\n-Grand Recherche : @gr\n\n-Amazon : @am",bg=Color,font=("arial","15"),fg=TextColor)
     #affichage
