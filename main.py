@@ -2,6 +2,7 @@ from pytube import*
 from tkinter import*
 from tkinter.messagebox import showinfo
 import os
+import webbrowser
 
 class ArreraVideoDownload :
     def __init__(self,color,colorbutton,textcolorbutton,textcolorlabel):
@@ -23,7 +24,7 @@ class ArreraVideoDownload :
         self.entryURL = Entry(self.cadreDownload,width=30,border=2,font=("arial",15))
         #label
         self.labelBeinvenu = Label(self.cardeMain,text="Bienvenu sur Arrera Download",font=("arial",15),bg=color,fg=textcolorlabel)
-        self.labelindiction = Label(self.cadreDownload,text="Coller l'URL",font=("arial",15),bg=color,fg=textcolorlabel)
+        self.labelindiction = Label(self.cadreDownload,font=("arial",15),bg=color,fg=textcolorlabel)
         self.labelWait = Label(self.cadreWait,text="En court",font=("arial",25),bg=color,fg=textcolorlabel)
         #option menu
         self.menu = OptionMenu(self.cadreDownload,self.varChoix,*self.listChoix)
@@ -32,6 +33,7 @@ class ArreraVideoDownload :
         self.boutonMusique = Button(self.cardeMain,text="Télécharger \ndes musiques",bg=colorbutton,fg=textcolorbutton,font=("arial",15),command=self.downloadPlaylistView)
         self.boutonRetour = Button(self.cadreDownload,text="retour",bg=colorbutton,fg=textcolorbutton,font=("arial",15),command=self.main)
         self.boutonDownload = Button(self.cadreDownload,text="Télécharger",bg=colorbutton,fg=textcolorbutton,font=("arial",15))
+        self.boutonYoutube = Button(self.cadreDownload,text="Ouvrir Youtube",bg=colorbutton,fg=textcolorbutton,font=("arial",15),command= lambda : webbrowser.open("https://www.youtube.com/"))
         #affichage
         self.labelBeinvenu.place(relx=0.5, rely=0, anchor="n")
         self.boutonVideo.place(x=0,y=100)
@@ -42,6 +44,7 @@ class ArreraVideoDownload :
         self.entryURL.place(relx=0.5,rely=0.5,anchor=CENTER)
         self.boutonRetour.place(x=0,y=210)
         self.boutonDownload.place(x=330,y=210)
+        self.boutonYoutube.place(relx=0.5, rely=1.0, anchor="s")
         
         self.labelWait.place(relx=0.5,rely=0.5,anchor=CENTER)
         
@@ -129,11 +132,13 @@ class ArreraVideoDownload :
 
     
     def downloadVideoView(self):
+        self.labelindiction.configure(text="Copier L'URL d'une video")
         self.downloadView()
         self.boutonDownload.config(command=self.downloadVideo)
         self.boutonRetour.config(command=self.main)
         
     def downloadPlaylistView(self):
+        self.labelindiction.configure(text="Copier L'URL d'une musique")
         self.downloadView()
         self.boutonDownload.config(command=self.downloadMusique)
         self.boutonRetour.config(command=self.main)
