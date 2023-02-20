@@ -1,158 +1,141 @@
 from pytube import*
 from tkinter import*
 from tkinter.messagebox import showinfo
-from time import*
 import os
-#var 
-Color = "#3c0f14"
-TextColor = "white"
-def Ecriture(file,text):#Fonction d'écriture sur un fichier texte
-    doc = open(file,"w")
-    doc.truncate()
-    doc.write(text)
-    doc.close()
-    return text,file
-def Lecture(file):#Fonction de lecture d'un fichier texte et stokage dans une varriable
-    fichier = open(file,"r")
-    contenu= fichier.readlines()[0]
-    fichier.close()
-    return contenu
 
-def HourSup(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT >= h1:
-        return True
-    else :
-        return False
-def HourInf(h1):
-    hour = strftime("%H")
-    h1 = int(h1)
-    hourINT = int(hour)
-    if hourINT <= h1:
-        return True
-    else :
-        return False
-ResultatHour1 = HourSup(21)
-ResultatHour2 = HourInf(6)
-def FoncModif(file):
-    Contenu = Lecture(file)
-    ScreenModif = Toplevel()
-    ScreenModif.maxsize(300,150)
-    ScreenModif.minsize(300,150)
-    ScreenModif.wait_visibility(ScreenModif)
-    ScreenModif.wm_attributes('-alpha',0.9)
-    ScreenModif.config(bg=Color)
-    LabelContenu = Label(ScreenModif,text=Contenu,font=("arial","20"),bg=Color,fg=TextColor).pack()
-    entry = Entry(ScreenModif)
-    def Modif():
-        Var = str(entry.get())
-        Ecriture(file,Var)
-        ScreenModif.destroy()
-    Modif = Button(ScreenModif,text="Modifier",bg=Color,fg=TextColor,command=Modif).pack(side="right",anchor="s")
-    entry.pack(side="left",anchor="s")
-
-def YoutubeDownload():
-    screen = Tk()
-    FileMusic = "musique"
-    FileVideo = "video"
-    screen.title("Arrera Video Download")
-    screen.config(bg=Color)
-    screen.iconphoto(False,PhotoImage(file="image/ArreraVideoDownload.png"))
-    screen.maxsize(500,600)
-    screen.minsize(500,600)
-    #Label et Cadre
-    LabelVideo = Label(screen,text= "Video",bg=Color,fg=TextColor,font=("arial","25"))
-    CadreVideo = Frame(screen,bg=Color,width=400,height=100)
-    LabelVideo2 = Label(screen,text= "Playlist Video",bg=Color,fg=TextColor,font=("arial","25"))
-    CadreVideo2 = Frame(screen,bg=Color,width=400,height=100)
-    LabelMusic = Label(screen,text= "Musique",bg=Color,fg=TextColor,font=("arial","25"))
-    CadreMusic = Frame(screen,bg=Color,width=400,height=100)
-    LabelMusic2 = Label(screen,text= "Playlist Musique",bg=Color,fg=TextColor,font=("arial","25"))
-    CadreMusic2 = Frame(screen,bg=Color,width=400,height=100)
-    LabelURL1 = Label(CadreVideo,text="Taper l'URL",fg=TextColor,bg=Color,font=("arial","15"))
-    LabelURL2 = Label(CadreVideo2,text="Taper l'URL",fg=TextColor,bg=Color,font=("arial","15"))
-    LabelURL3 = Label(CadreMusic,text="Taper l'URL",fg=TextColor,bg=Color,font=("arial","15"))
-    LabelURL4 = Label(CadreMusic2,text="Taper l'URL",fg=TextColor,bg=Color,font=("arial","15"))
-    #Entry
-    EntryURL1 = Entry(CadreVideo,width=63)
-    EntryURL2 = Entry(CadreVideo2,width=63)
-    EntryURL3 = Entry(CadreMusic,width=63)
-    EntryURL4 = Entry(CadreMusic2,width=63)
-    #Fonction
-    def AffichageCadre():
-        LabelVideo.pack()
-        CadreVideo.pack()
-        LabelVideo2.pack()
-        CadreVideo2.pack()
-        LabelMusic.pack()
-        CadreMusic.pack()
-        LabelMusic2.pack()
-        CadreMusic2.pack()
-    def NoAffichageCadre():
-        LabelVideo.pack_forget()
-        CadreVideo.pack_forget()
-        LabelVideo2.pack_forget()
-        CadreVideo2.pack_forget()
-        LabelMusic.pack_forget()
-        CadreMusic.pack_forget()
-        LabelMusic2.pack_forget()
-        CadreMusic2.pack_forget()
-    def Download1():
-        URL = str(EntryURL1.get())
-        Media = YouTube(URL)
-        downloadMedia = Media.streams.get_by_itag(18)
-        downloadMedia.download(FileVideo)
-        showinfo(title="Youtube Downloader",message="Video Télécharger")
+class ArreraVideoDownload :
+    def __init__(self,color,colorbutton,textcolorbutton,textcolorlabel):
+        self.screen = Tk()
+        self.varChoix = StringVar(self.screen)
+        self.listChoix = ["simple","playlist"]
+        self.fileMusic = "musique"
+        self.fileVideo = "video"
+        self.screen.title("Arrera Video Download")
+        self.screen.config(bg=color)
+        self.screen.iconphoto(False,PhotoImage(file="image/ArreraVideoDownload.png"))
+        self.screen.maxsize(500,300)
+        self.screen.minsize(500,300)
+        #cadre
+        self.cardeMain = Frame(self.screen,bg=color,width=450,height=250)
+        self.cadreDownload = Frame(self.screen,bg=color,width=450,height=250)
+        self.cadreWait = Frame(self.screen,bg=color,width=450,height=250)
+        #entry
+        self.entryURL = Entry(self.cadreDownload,width=30,border=2,font=("arial",15))
+        #label
+        self.labelBeinvenu = Label(self.cardeMain,text="Bienvenu sur Arrera Download",font=("arial",15),bg=color,fg=textcolorlabel)
+        self.labelindiction = Label(self.cadreDownload,text="Coller l'URL",font=("arial",15),bg=color,fg=textcolorlabel)
+        self.labelWait = Label(self.cadreWait,text="En court",font=("arial",25),bg=color,fg=textcolorlabel)
+        #option menu
+        self.menu = OptionMenu(self.cadreDownload,self.varChoix,*self.listChoix)
+        #button
+        self.boutonVideo = Button(self.cardeMain,text="Télécharger \ndes vidéos",bg=colorbutton,fg=textcolorbutton,font=("arial",15),command=self.downloadVideoView)
+        self.boutonMusique = Button(self.cardeMain,text="Télécharger \ndes musiques",bg=colorbutton,fg=textcolorbutton,font=("arial",15),command=self.downloadPlaylistView)
+        self.boutonRetour = Button(self.cadreDownload,text="retour",bg=colorbutton,fg=textcolorbutton,font=("arial",15),command=self.main)
+        self.boutonDownload = Button(self.cadreDownload,text="Télécharger",bg=colorbutton,fg=textcolorbutton,font=("arial",15))
+        #affichage
+        self.labelBeinvenu.place(relx=0.5, rely=0, anchor="n")
+        self.boutonVideo.place(x=0,y=100)
+        self.boutonMusique.place(x=313,y=100)
         
-    def Download2():
-        URL = str(EntryURL2.get())
-        playlist = Playlist(URL)
-        for videos in playlist.videos:
-            videos.streams.get_by_itag(18).download(FileVideo)
-        showinfo(title="Youtube Downloader",message="Videos Télécharger")
+        self.labelindiction.place(x=100,y=0)
+        self.menu.place(x=0,y=0)
+        self.entryURL.place(relx=0.5,rely=0.5,anchor=CENTER)
+        self.boutonRetour.place(x=0,y=210)
+        self.boutonDownload.place(x=330,y=210)
+        
+        self.labelWait.place(relx=0.5,rely=0.5,anchor=CENTER)
+        
+        self.main()
+        
+        self.screen.mainloop()
     
-    def Download3():
-        URL = str(EntryURL3.get())
-        Media = YouTube(URL)
+    def downloadVideoSimple(self):
+        self.waitView()
+        valURL = self.entryURL.get()
+        self.entryURL.delete(0,END)
+        Media = YouTube(valURL)
+        downloadMedia = Media.streams.get_by_itag(18)
+        downloadMedia.download(self.fileVideo)
+        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        self.waitNoView()
+    
+    def downloadVideoPlaylist(self):
+        self.waitView()
+        valURL = self.entryURL.get()
+        self.entryURL.delete(0,END)
+        playlist = Playlist(valURL)
+        for videos in playlist.videos:
+            videos.streams.get_by_itag(18).download(self.fileVideo)      
+        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        self.waitNoView()
+    
+    def downloadMusiqueSimple(self):
+        self.waitView()
+        valURL = self.entryURL.get()
+        self.entryURL.delete(0,END)
+        Media = YouTube(valURL)
         downloadMedia = Media.streams.filter(only_audio=True).first()
-        out_file = downloadMedia.download(FileMusic)
+        out_file = downloadMedia.download(self.fileMusic)
         base, ext = os.path.splitext(out_file)
         new_file = base + '.mp3'
         os.rename(out_file, new_file)
-
-        showinfo(title="Youtube Downloader",message="Musique Télécharger")
-
-    def Download4():
-        URL = str(EntryURL4.get())
-        playlist = Playlist(URL)
+        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        self.waitNoView()
+    
+    def downloadMusiquePlaylist(self):
+        self.waitView()
+        valURL = self.entryURL.get()
+        self.entryURL.delete(0,END)
+        playlist = Playlist(valURL)
         for videos in playlist.videos:
             downloadMedia = videos.streams.filter(only_audio=True).first()
-            out_file = downloadMedia.download(FileMusic)
+            out_file = downloadMedia.download(self.fileMusic)
             base, ext = os.path.splitext(out_file)
             new_file = base + '.mp3'
             os.rename(out_file, new_file)
-        showinfo(title="Youtube Downloader",message="Musiques Télécharger")
-    #Bouton
-    BoutonDownload1 = Button(CadreVideo,text="Télécharger",bg=Color,fg=TextColor,command=Download1,font=("arial","13"))
-    BoutonDownload2 = Button(CadreVideo2,text="Télécharger",bg=Color,fg=TextColor,command=Download2,font=("arial","13"))
-    BoutonDownload3 = Button(CadreMusic,text="Télécharger",bg=Color,fg=TextColor,command=Download3,font=("arial","13"))
-    BoutonDownload4 = Button(CadreMusic2,text="Télécharger",bg=Color,fg=TextColor,command=Download4,font=("arial","13"))
-    #Affichage
-    AffichageCadre()
-    LabelURL1.place(x="150",y="0")
-    LabelURL2.place(x="150",y="0")
-    LabelURL3.place(x="150",y="0")
-    LabelURL4.place(x="150",y="0")
-    EntryURL1.place(x="10",y="30")
-    EntryURL2.place(x="10",y="30")
-    EntryURL3.place(x="10",y="30")
-    EntryURL4.place(x="10",y="30")
-    BoutonDownload1.place(x="150",y="60")
-    BoutonDownload2.place(x="150",y="60")
-    BoutonDownload3.place(x="150",y="60")
-    BoutonDownload4.place(x="150",y="60")
-    screen.mainloop()
+        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        self.waitNoView()
+    
+    def downloadVideo(self):
+        var = self.varChoix.get()
+        if var == "simple" :
+            self.downloadVideoSimple()
+        else :
+            self.downloadVideoPlaylist()
+    
+    def downloadMusique(self):
+        var = self.varChoix.get()
+        if var == "simple" :
+            self.downloadMusiqueSimple()
+        else :
+            self.downloadMusiquePlaylist()
+    
+    def main(self):
+        self.cadreDownload.place_forget()
+        self.cardeMain.place(relx=0.5,rely=0.5,anchor=CENTER)
+        
+    def downloadView(self):
+        self.cardeMain.place_forget()
+        self.cadreDownload.place(relx=0.5,rely=0.5,anchor=CENTER)
+        self.varChoix.set(self.listChoix[0])
+        
+    def waitView(self):
+        self.cadreDownload.place_forget()
+        self.cadreWait.place(relx=0.5,rely=0.5,anchor=CENTER)
+        
+    def waitNoView(self):
+        self.cadreWait.place_forget()
+        self.cadreDownload.place(relx=0.5,rely=0.5,anchor=CENTER)
 
-YoutubeDownload()
+    
+    def downloadVideoView(self):
+        self.downloadView()
+        self.boutonDownload.config(command=self.downloadVideo)
+        self.boutonRetour.config(command=self.main)
+        
+    def downloadPlaylistView(self):
+        self.downloadView()
+        self.boutonDownload.config(command=self.downloadMusique)
+        self.boutonRetour.config(command=self.main)
+        
+ArreraVideoDownload("white","red","white","black")
