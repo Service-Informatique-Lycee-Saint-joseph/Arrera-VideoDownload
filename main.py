@@ -1,7 +1,8 @@
 from pytube import*
 import threading as th
 from tkinter import*
-from tkinter.messagebox import showinfo
+from tkinter import Tk, filedialog
+from tkinter.messagebox import showinfo ,showerror
 import os
 import webbrowser
 
@@ -60,50 +61,65 @@ class ArreraVideoDownload :
     
     def __downloadVideoSimple(self):
         self.__waitView()
-        valURL = self.__entryURL.get()
-        print(valURL)
-        self.__entryURL.delete(0,END)
-        Media = YouTube(valURL)
-        downloadMedia = Media.streams.get_by_itag(18)
-        downloadMedia.download(self.__fileVideo)
-        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        file = filedialog.askdirectory()
+        if file :
+            valURL = self.__entryURL.get()
+            self.__entryURL.delete(0,END)
+            Media = YouTube(valURL)
+            downloadMedia = Media.streams.get_by_itag(18)
+            downloadMedia.download(file)
+            showinfo(title="Youtube Downloader",message="Video Télécharger")
+        else :
+           showerror(title="Video download",message="Aucun dossier selectionner") 
         self.__waitNoView()
     
     def __downloadVideoPlaylist(self):
         self.__waitView()
-        valURL = self.__entryURL.get()
-        self.__entryURL.delete(0,END)
-        playlist = Playlist(valURL)
-        for videos in playlist.videos:
-            videos.streams.get_by_itag(18).download(self.__fileVideo)      
-        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        file = filedialog.askdirectory()
+        if file :
+            valURL = self.__entryURL.get()
+            self.__entryURL.delete(0,END)
+            playlist = Playlist(valURL)
+            for videos in playlist.videos:
+                videos.streams.get_by_itag(18).download(file)      
+            showinfo(title="Youtube Downloader",message="Video Télécharger")
+        else :
+           showerror(title="Video download",message="Aucun dossier selectionner") 
         self.__waitNoView()
     
     def __downloadMusiqueSimple(self):
         self.__waitView()
-        valURL = self.__entryURL.get()
-        self.__entryURL.delete(0,END)
-        Media = YouTube(valURL)
-        downloadMedia = Media.streams.filter(only_audio=True).first()
-        out_file = downloadMedia.download(self.__fileMusic)
-        base, ext = os.path.splitext(out_file)
-        new_file = base + '.mp3'
-        os.rename(out_file, new_file)
-        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        file = filedialog.askdirectory()
+        if file :
+            valURL = self.__entryURL.get()
+            self.__entryURL.delete(0,END)
+            Media = YouTube(valURL)
+            downloadMedia = Media.streams.filter(only_audio=True).first()
+            out_file = downloadMedia.download(file)
+            base, ext = os.path.splitext(out_file)
+            new_file = base + '.mp3'
+            os.rename(out_file, new_file)
+            showinfo(title="Youtube Downloader",message="Video Télécharger")
+        else :
+           showerror(title="Video download",message="Aucun dossier selectionner")
         self.__waitNoView()
     
     def __downloadMusiquePlaylist(self):
         self.__waitView()
-        valURL = self.__entryURL.get()
-        self.__entryURL.delete(0,END)
-        playlist = Playlist(valURL)
-        for videos in playlist.videos:
-            downloadMedia = videos.streams.filter(only_audio=True).first()
-            out_file = downloadMedia.download(self.__fileMusic)
-            base, ext = os.path.splitext(out_file)
-            new_file = base + '.mp3'
-            os.rename(out_file, new_file)
-        showinfo(title="Youtube Downloader",message="Video Télécharger")
+        file = filedialog.askdirectory()
+        if file :
+            valURL = self.__entryURL.get()
+            self.__entryURL.delete(0,END)
+            playlist = Playlist(valURL)
+            for videos in playlist.videos:
+                downloadMedia = videos.streams.filter(only_audio=True).first()
+                out_file = downloadMedia.download(file)
+                base, ext = os.path.splitext(out_file)
+                new_file = base + '.mp3'
+                os.rename(out_file, new_file)
+            showinfo(title="Youtube Downloader",message="Video Télécharger")
+        else :
+           showerror(title="Video download",message="Aucun dossier selectionner")
         self.__waitNoView()
     
     def __downloadVideo(self):
@@ -111,14 +127,17 @@ class ArreraVideoDownload :
         if var == "simple" :
             self.__theardDownloadVideoSimple.start()
         else :
-            self.__theardDownloadVideoPlaylist()
+            self.__theardDownloadVideoPlaylist.start()
+            
     
     def __downloadMusique(self):
         var = self.__varChoix.get()
         if var == "simple" :
             self.__theardDownloadMusiqueSimple.start()
+            
         else :
             self.__theardDownloadMusiquePlaylist.start()
+            
     
     def __main(self):
         self.__cadreDownload.place_forget()
