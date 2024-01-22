@@ -1,4 +1,5 @@
 from pytube import*
+import threading as th
 from tkinter import*
 from tkinter.messagebox import showinfo
 import os
@@ -16,6 +17,11 @@ class ArreraVideoDownload :
         self.screen.iconphoto(False,PhotoImage(file="image/ArreraVideoDownload.png"))
         self.screen.maxsize(500,300)
         self.screen.minsize(500,300)
+        #Instantation theard
+        self.theardDownloadVideoSimple=th.Thread(target=self.downloadVideoSimple)
+        self.theardDownloadVideoPlaylist=th.Thread(target=self.downloadVideoPlaylist)
+        self.theardDownloadMusiqueSimple=th.Thread(target=self.downloadMusiqueSimple)
+        self.theardDownloadMusiquePlaylist=th.Thread(target=self.downloadMusiquePlaylist)
         #cadre
         self.cardeMain = Frame(self.screen,bg=color,width=450,height=250)
         self.cadreDownload = Frame(self.screen,bg=color,width=450,height=250)
@@ -55,6 +61,7 @@ class ArreraVideoDownload :
     def downloadVideoSimple(self):
         self.waitView()
         valURL = self.entryURL.get()
+        print(valURL)
         self.entryURL.delete(0,END)
         Media = YouTube(valURL)
         downloadMedia = Media.streams.get_by_itag(18)
@@ -102,16 +109,16 @@ class ArreraVideoDownload :
     def downloadVideo(self):
         var = self.varChoix.get()
         if var == "simple" :
-            self.downloadVideoSimple()
+            self.theardDownloadVideoSimple.start()
         else :
-            self.downloadVideoPlaylist()
+            self.theardDownloadVideoPlaylist()
     
     def downloadMusique(self):
         var = self.varChoix.get()
         if var == "simple" :
-            self.downloadMusiqueSimple()
+            self.theardDownloadMusiqueSimple.start()
         else :
-            self.downloadMusiquePlaylist()
+            self.theardDownloadMusiquePlaylist.start()
     
     def main(self):
         self.cadreDownload.place_forget()
