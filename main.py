@@ -1,5 +1,4 @@
 from pytube import*
-import threading as th
 from tkinter import*
 from tkinter import Tk, filedialog
 from tkinter.messagebox import showinfo ,showerror
@@ -18,11 +17,6 @@ class ArreraVideoDownload :
         self.__screen.iconphoto(False,PhotoImage(file="image/ArreraVideoDownload.png"))
         self.__screen.maxsize(500,300)
         self.__screen.minsize(500,300)
-        #Instantation theard
-        self.__theardDownloadVideoSimple=th.Thread(target=self.__downloadVideoSimple)
-        self.__theardDownloadVideoPlaylist=th.Thread(target=self.__downloadVideoPlaylist)
-        self.__theardDownloadMusiqueSimple=th.Thread(target=self.__downloadMusiqueSimple)
-        self.__theardDownloadMusiquePlaylist=th.Thread(target=self.__downloadMusiquePlaylist)
         #cadre
         self.__cardeMain = Frame(self.__screen,bg=color,width=450,height=250)
         self.__cadreDownload = Frame(self.__screen,bg=color,width=450,height=250)
@@ -125,18 +119,17 @@ class ArreraVideoDownload :
     def __downloadVideo(self):
         var = self.__varChoix.get()
         if var == "simple" :
-            self.__theardDownloadVideoSimple.start()
+            self.__downloadVideoSimple()
         else :
-            self.__theardDownloadVideoPlaylist.start()
+            self.__downloadVideoPlaylist()
             
     
     def __downloadMusique(self):
         var = self.__varChoix.get()
         if var == "simple" :
-            self.__theardDownloadMusiqueSimple.start()
-            
+            self.__downloadMusiqueSimple()
         else :
-            self.__theardDownloadMusiquePlaylist.start()
+            self.__downloadMusiquePlaylist()
             
     
     def __main(self):
