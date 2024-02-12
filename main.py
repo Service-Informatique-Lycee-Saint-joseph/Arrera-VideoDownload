@@ -4,19 +4,28 @@ from tkinter import Tk, filedialog
 from tkinter.messagebox import showinfo ,showerror
 import os
 import webbrowser
+from PIL import Image, ImageTk
 
 class ArreraVideoDownload :
     def __init__(self,color,colorbutton,textcolorbutton,textcolorlabel):
+        #Var 
+        self.__nameApp = "Arrera Video Download"
+        self.__versionApp = ""
+        self.__imagePath = "image/ArreraVideoDownload.png" 
+        self.__copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024"
+        #fenetre
         self.__screen = Tk()
         self.__varChoix = StringVar(self.__screen)
         self.__listChoix = ["simple","playlist"]
-        self.__fileMusic = "musique"
-        self.__fileVideo = "video"
-        self.__screen.title("Arrera Video Download")
+        self.__screen.title(self.__nameApp)
         self.__screen.config(bg=color)
-        self.__screen.iconphoto(False,PhotoImage(file="image/ArreraVideoDownload.png"))
+        self.__screen.iconphoto(False,PhotoImage(file=self.__imagePath))
         self.__screen.maxsize(500,300)
         self.__screen.minsize(500,300)
+        #Menu 
+        menu = Menu(self.__screen)
+        menu.add_command(label="A propos",command=self.__Apropop)
+        self.__screen.configure(menu=menu)
         #cadre
         self.__cardeMain = Frame(self.__screen,bg=color,width=450,height=250)
         self.__cadreDownload = Frame(self.__screen,bg=color,width=450,height=250)
@@ -161,5 +170,30 @@ class ArreraVideoDownload :
         self.__downloadView()
         self.__boutonDownload.config(command=self.__downloadMusique)
         self.__boutonRetour.config(command=self.__main)
+    
+    def __Apropop(self):
+        #Variable
+        tailleIMG = (100,100)
+        #Creation de la fenetre
+        about = Toplevel()
+        about.iconphoto(False,PhotoImage(file=self.__imagePath))
+        about.title("A propos : "+self.__nameApp)
+        about.maxsize(400,300)
+        about.minsize(400,300)
+        #Traitement Image
+        imageOrigine = Image.open(self.__imagePath)    
+        imageRedim = imageOrigine.resize(tailleIMG)
+        icon = ImageTk.PhotoImage(imageRedim)
+        #Label
+        labelIcon = Label(about,image=icon)
+        labelName = Label(about,text="\n"+self.__nameApp+"\n",font=("arial","12"))
+        labelVersion = Label(about,text=self.__versionApp+"\n",font=("arial","11"))
+        labelCopyright = Label(about,text=self.__copyrightApp,font=("arial","9"))
+        #affichage
+        labelIcon.pack()
+        labelName.pack()
+        labelVersion.pack()
+        labelCopyright.pack()
+        about.mainloop()
         
 ArreraVideoDownload("white","red","white","black")
