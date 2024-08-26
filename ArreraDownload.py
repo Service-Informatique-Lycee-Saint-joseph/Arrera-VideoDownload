@@ -18,7 +18,7 @@ class CArreraDownload :
             self.__downloadFolderSet = True
             self.__ydlOpts = {
                 'format': 'best',  # Sélectionne la meilleure qualité disponible
-                'outtmpl': folder + '%(title)s.%(ext)s',  # Définit le chemin de sortie
+                'outtmpl': folder+"/"+ '%(title)s.%(ext)s',  # Définit le chemin de sortie
                 'quiet': True,  # Désactive les messages de la console
                 'no_warnings': True,  # Supprime les avertissements
             }   
@@ -32,7 +32,7 @@ class CArreraDownload :
             self.__downloadFolderSet = True
             self.__ydlOpts = {
                 'format': 'best',  # Sélectionne la meilleure qualité disponible
-                'outtmpl': folder + '%(title)s.%(ext)s',  # Définit le chemin de sortie
+                'outtmpl': folder+"/"+ '%(title)s.%(ext)s',  # Définit le chemin de sortie
                 'quiet': True,  # Désactive les messages de la console
                 'no_warnings': True,  # Supprime les avertissements
             }   
