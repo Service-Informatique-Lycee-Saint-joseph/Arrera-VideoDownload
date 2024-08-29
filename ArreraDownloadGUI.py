@@ -8,13 +8,17 @@ import threading as th
 
 class CArreraDGUI :
     def __init__(self) :
+        # Fenetre
+        self.__windows = ctk.CTk()
+        
         # Var 
         self.__nameApp = "Arrera Download"
         self.__versionApp = "I2024-4.00"
         self.__imagePath = "image/ArreraVideoDownload.png"
+        self.__listMode = ["Video Simple","Juste sons","Juste Video"]
+        self.__varGetMode = StringVar(self.__windows)
         
-        # Fenetre
-        self.__windows = ctk.CTk()
+        # Parametrage de la fenetre
         self.__windows.title(self.__nameApp)
         self.__windows.maxsize(500,500)
         self.__windows.minsize(500,500)
@@ -30,12 +34,17 @@ class CArreraDGUI :
         self.__entryURL = ctk.CTkEntry(self.__windows, placeholder_text="Entrez URL",font=("Arial",15),width=300)
         btnDownload = ctk.CTkButton(self.__windows,text ="Telecharger",font=("Arial",25),command=self.__download)
         btnChooseFile = ctk.CTkButton(self.__windows,text ="Dossier Sortie",font=("Arial",25),command=self.__setFolder)
-        
+        modeSelection = ctk.CTkOptionMenu(self.__windows,variable=self.__varGetMode,values=self.__listMode)
+                
         # Affichage
         labelTitle.pack()
+        modeSelection.place(x=10,y=60)
         btnDownload.place(relx=1, rely=1, anchor='se')
         btnChooseFile.place(relx=0, rely=1, anchor='sw')
         self.__entryURL.place(relx=0.5, rely=0.3, anchor="center")
+        
+        # Mise d'une valeur sur l'option menu 
+        self.__varGetMode.set(self.__listMode[0])
         
         # Mise en place de objet 
         self.__objetArrera = CArreraDownload()
@@ -50,6 +59,18 @@ class CArreraDGUI :
             self.__objetArrera.setDownloadFolder()
         else :
             self.__objetArrera.setDownloadFolderDur(folder)
+            
+        # Recuperation du mode 
+        mode = self.__varGetMode.get()
+        
+        if (mode == "Video Simple"):
+            self.__objetArrera.setMode(1)
+        else :
+            if (mode == "Juste sons") :
+                self.__objetArrera.setMode(2)
+            else :
+                if (mode == "Juste Video") :
+                    self.__objetArrera.setMode(3)
         
         tDownload = th.Thread(target=self.__objetArrera.setURL(self.__entryURL.get()))
         tDownload.start()
