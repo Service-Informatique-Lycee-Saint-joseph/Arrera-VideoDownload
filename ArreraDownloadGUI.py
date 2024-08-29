@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 from ArreraDownload import*
 from tkinter.messagebox import*
 from travailJSON import*
+import threading as th
 
 class CArreraDGUI :
     def __init__(self) :
@@ -11,21 +12,25 @@ class CArreraDGUI :
         self.__nameApp = "Arrera Download"
         self.__versionApp = "I2024-4.00"
         self.__imagePath = "image/ArreraVideoDownload.png"
+        
         # Fenetre
         self.__windows = ctk.CTk()
-        self.__windows.title()
+        self.__windows.title(self.__nameApp)
         self.__windows.maxsize(500,500)
         self.__windows.minsize(500,500)
         self.__windows.iconbitmap("image/ArreraVideoDownload.ico")
+        
         # Menu
         menu = Menu(self.__windows)
         menu.add_command(label = "A Propos",command=self.__Apropos)
         self.__windows.configure(menu=menu)
+        
         # Widget
         labelTitle = ctk.CTkLabel(self.__windows,text="Arrera Download",font=("Arial",30))
         self.__entryURL = ctk.CTkEntry(self.__windows, placeholder_text="Entrez URL",font=("Arial",15),width=300)
         btnDownload = ctk.CTkButton(self.__windows,text ="Telecharger",font=("Arial",25),command=self.__download)
         btnChooseFile = ctk.CTkButton(self.__windows,text ="Dossier Sortie",font=("Arial",25),command=self.__setFolder)
+        
         # Affichage
         labelTitle.pack()
         btnDownload.place(relx=1, rely=1, anchor='se')
@@ -46,7 +51,10 @@ class CArreraDGUI :
         else :
             self.__objetArrera.setDownloadFolderDur(folder)
         
-        self.__objetArrera.setURL(self.__entryURL.get())
+        tDownload = th.Thread(target=self.__objetArrera.setURL(self.__entryURL.get()))
+        tDownload.start()
+        tDownload.join()
+        del tDownload
         
         self.__entryURL.delete(0,END)
         
