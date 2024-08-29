@@ -1,24 +1,32 @@
 import customtkinter as ctk
 from tkinter import*
+from PIL import Image, ImageTk
 from ArreraDownload import*
 from tkinter.messagebox import*
 from travailJSON import*
 
 class CArreraDGUI :
     def __init__(self) :
+        # Var 
+        self.__nameApp = "Arrera Download"
+        self.__versionApp = "I2024-4.00"
+        self.__imagePath = "image/ArreraVideoDownload.png"
+        # Fenetre
         self.__windows = ctk.CTk()
-        self.__windows.title("Arrera Download")
-        icon = PhotoImage(file="image/ArreraVideoDownload.png")
-        self.__windows.iconphoto(False,icon)
+        self.__windows.title()
         self.__windows.maxsize(500,500)
         self.__windows.minsize(500,500)
         self.__windows.iconbitmap("image/ArreraVideoDownload.ico")
-        
+        # Menu
+        menu = Menu(self.__windows)
+        menu.add_command(label = "A Propos",command=self.__Apropos)
+        self.__windows.configure(menu=menu)
+        # Widget
         labelTitle = ctk.CTkLabel(self.__windows,text="Arrera Download",font=("Arial",30))
         self.__entryURL = ctk.CTkEntry(self.__windows, placeholder_text="Entrez URL",font=("Arial",15),width=300)
         btnDownload = ctk.CTkButton(self.__windows,text ="Telecharger",font=("Arial",25),command=self.__download)
         btnChooseFile = ctk.CTkButton(self.__windows,text ="Dossier Sortie",font=("Arial",25),command=self.__setFolder)
-        
+        # Affichage
         labelTitle.pack()
         btnDownload.place(relx=1, rely=1, anchor='se')
         btnChooseFile.place(relx=0, rely=1, anchor='sw')
@@ -56,3 +64,29 @@ class CArreraDGUI :
             showinfo("Download","Dossier enregistrer")
         else :
             showerror("Download","Aucun dossier selectionner")
+    
+    def __Apropos(self):
+        #Variable
+        copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024"
+        color = "white"
+        #Creation de la fenetre
+        about = Toplevel()
+        about.title("A propos : "+self.__nameApp)
+        about.maxsize(400,300)
+        about.minsize(400,300)
+        about.configure(bg=color)
+        about.iconphoto(False,PhotoImage(file=self.__imagePath))
+        #Traitement Image
+        icon = ImageTk.PhotoImage(Image.open(self.__imagePath).resize((100,100)))
+        #Label
+        labelIcon = Label(about,bg=color)
+        labelIcon.image_names = icon
+        labelIcon.configure(image=icon)
+        labelName = Label(about,text="\n"+self.__nameApp+"\n",font=("arial","12"),bg=color)
+        labelVersion = Label(about,text=self.__versionApp+"\n",font=("arial","11"),bg=color)
+        labelCopyright = Label(about,text=copyrightApp,font=("arial","9"),bg=color)
+        #affichage
+        labelIcon.pack()
+        labelName.pack()
+        labelVersion.pack()
+        labelCopyright.pack()
