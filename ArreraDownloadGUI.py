@@ -14,7 +14,7 @@ class CArreraDGUI :
         
         # Var 
         self.__nameApp = "Arrera Download"
-        self.__versionApp = "I2024-4.00"
+        self.__versionApp = "I2024-"
         self.__imagePath = "image/ArreraVideoDownload.png"
         self.__listMode = ["Video Simple","Juste sons","Juste Video"]
         self.__varGetMode = StringVar(self.__windows)
