@@ -28,7 +28,7 @@ class CArreraDGUI :
         # Menu
         menu = Menu(self.__windows)
         menu.add_command(label = "A Propos",command=self.__Apropos)
-        menu.add_command(label="Documentation",command= lambda : webbrowser.open(""))
+        menu.add_command(label="Documentation",command= lambda : webbrowser.open("https://github.com/Arrera-Software/Arrera-VideoDownload/blob/main/README.md"))
         self.__windows.configure(menu=menu)
         
         # Widget
