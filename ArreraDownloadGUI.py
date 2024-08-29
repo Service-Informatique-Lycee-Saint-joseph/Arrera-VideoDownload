@@ -5,6 +5,7 @@ from ArreraDownload import*
 from tkinter.messagebox import*
 from travailJSON import*
 import threading as th
+import webbrowser
 
 class CArreraDGUI :
     def __init__(self) :
@@ -27,6 +28,7 @@ class CArreraDGUI :
         # Menu
         menu = Menu(self.__windows)
         menu.add_command(label = "A Propos",command=self.__Apropos)
+        menu.add_command(label="Documentation",command= lambda : webbrowser.open(""))
         self.__windows.configure(menu=menu)
         
         # Widget
