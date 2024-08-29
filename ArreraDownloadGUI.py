@@ -12,6 +12,7 @@ class CArreraDGUI :
         self.__windows.iconphoto(False,icon)
         self.__windows.maxsize(500,500)
         self.__windows.minsize(500,500)
+        self.__windows.iconbitmap("image/ArreraVideoDownload.ico")
         
         labelTitle = ctk.CTkLabel(self.__windows,text="Arrera Download",font=("Arial",30))
         self.__entryURL = ctk.CTkEntry(self.__windows, placeholder_text="Entrez URL",font=("Arial",15),width=300)
