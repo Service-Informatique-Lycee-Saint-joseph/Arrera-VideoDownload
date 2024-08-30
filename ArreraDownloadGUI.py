@@ -14,7 +14,7 @@ class CArreraDGUI :
         
         # Var 
         self.__nameApp = "Arrera Download"
-        self.__versionApp = "I2024-"
+        self.__versionApp = "STJO-1.00"
         self.__imagePath = "image/ArreraVideoDownload.png"
         self.__listMode = ["Video Simple","Juste sons","Juste Video"]
         self.__varGetMode = StringVar(self.__windows)
@@ -28,7 +28,7 @@ class CArreraDGUI :
         # Menu
         menu = Menu(self.__windows)
         menu.add_command(label = "A Propos",command=self.__Apropos)
-        menu.add_command(label="Documentation",command= lambda : webbrowser.open("https://github.com/Arrera-Software/Arrera-VideoDownload/blob/main/README.md"))
+        menu.add_command(label="Documentation",command= lambda : webbrowser.open("https://github.com/Service-Informatique-Lycee-Saint-joseph/Arrera-VideoDownload/blob/main/README.md"))
         self.__windows.configure(menu=menu)
         
         # Widget
@@ -98,7 +98,7 @@ class CArreraDGUI :
     
     def __Apropos(self):
         #Variable
-        copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024"
+        copyrightApp = "Copyright Arrera Software by Baptiste P 2023-2024 for ST JO"
         color = "white"
         #Creation de la fenetre
         about = Toplevel()
